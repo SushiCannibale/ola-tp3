@@ -1,60 +1,49 @@
 #include <random>
 #include <iostream>
+#include <cmath>
 
 #include "sort.hpp"
 
 
 void show_array(int nb_vals, int nb_funcs, std::string func_names[], double* data) {
+    int padding = log10(nb_vals)+1;
     /* Front padding (8-spaces format of nb_vals) */
-    std::cout << "        | ";
+    fprintf(stdout, "%*s", padding+3, " | ");
     /* Prints function names */
     for (int i = 0; i < nb_funcs; i++) {
         std::cout << func_names[i] << " | ";
     }
 
     std::cout << std::endl;
-
-    fprintf(stdout, "%-8d", nb_vals);
+    fprintf(stdout, "%-*d", padding, nb_vals);
+    std::cout << " | ";
 
     /* Print stats */
     for (int i = 0; i < nb_funcs; i++) {
-        fprintf(stdout, "%14f", data[i]);
-        std::cout << " ";
-        // for (int j = 0; j < func_names[i].length()/2; j++) {
-        //     std::cout << " ";
-        // }
-        // std::cout << data[i];
-        // for (int j = 0; j < func_names[i].length()/2; j++) {
-        //     std::cout << " ";
-        // }
+        fprintf(stdout, "%*f", (int)func_names[i].length(), data[i]);
+        std::cout << " | ";
     }
 
     std::cout << std::endl;
 }
 
 void show_array(int nb_vals, int nb_funcs, std::string func_names[], unsigned long* data) {
+    int padding = log10(nb_vals)+1;
     /* Front padding (8-spaces format of nb_vals) */
-    std::cout << "        | ";
+    fprintf(stdout, "%*s", padding+3, " | ");
     /* Prints function names */
     for (int i = 0; i < nb_funcs; i++) {
         std::cout << func_names[i] << " | ";
     }
 
     std::cout << std::endl;
-
-    fprintf(stdout, "%-8d", nb_vals);
+    fprintf(stdout, "%-*d", padding, nb_vals);
+    std::cout << " | ";
 
     /* Print stats */
     for (int i = 0; i < nb_funcs; i++) {
-        fprintf(stdout, "%14ld", data[i]);
+        fprintf(stdout, "%*ld", (int)func_names[i].length(), data[i]);
         std::cout << " | ";
-        // for (int j = 0; j < func_names[i].length()/2; j++) {
-        //     std::cout << " ";
-        // }
-        // std::cout << data[i];
-        // for (int j = 0; j < func_names[i].length()/2; j++) {
-        //     std::cout << " ";
-        // }
     }
 
     std::cout << std::endl;
@@ -67,18 +56,18 @@ int main(int argc, char** argv) {
     std::string func_names[nb_funcs] = { "Insertion Sort", "Merge Sort", "Quick Sort" };
 
     /* Stats */
-    time_t start, end;
-    double timediffs[nb_funcs];
-    unsigned long nb_swaps[nb_funcs];
-    unsigned long nb_cmps[nb_funcs];
+    double timediffs[nb_funcs] = { 0.0 };
+    unsigned long nb_swaps[nb_funcs] = { 0 };
+    unsigned long nb_cmps[nb_funcs] = { 0 };
 
     //          fn1       fn2        fn3       ...
     //   500     X         X          X
     //   ...
 
-    int user_nb_vals = 10; // TODO: fills the user input 'user_nb_vals'
+    int user_nb_vals = 100000; // TODO: fills the user input 'user_nb_vals'
 
     for (int i = 0; i < nb_funcs; i++) {
+        time_t start, end;
         std::vector<int> array;
         
         /* Fills the array */
@@ -95,15 +84,17 @@ int main(int argc, char** argv) {
     }
 
     /* Display the arrays */
-    std::cout << "Timestamps" << std::endl;
+    std::cout << "Timestamps :" << std::endl;
     show_array(user_nb_vals, nb_funcs, func_names, timediffs);
     std::cout << std::endl;
 
-    std::cout << "Number of swaps" << std::endl;
+    std::cout << "Number of swaps :" << std::endl;
     show_array(user_nb_vals, nb_funcs, func_names, nb_swaps);
     std::cout << std::endl;
 
-    std::cout << "Number of comparisons" << std::endl;
+    std::cout << "Number of comparisons :" << std::endl;
     show_array(user_nb_vals, nb_funcs, func_names, nb_cmps);
     std::cout << std::endl;
+
+    return 0;
 }
