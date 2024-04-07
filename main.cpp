@@ -3,6 +3,7 @@
 
 #include "sort.hpp"
 
+
 void show_array(int nb_vals, int nb_funcs, std::string func_names[], double* data) {
     /* Front padding (8-spaces format of nb_vals) */
     std::cout << "        | ";
@@ -18,7 +19,35 @@ void show_array(int nb_vals, int nb_funcs, std::string func_names[], double* dat
     /* Print stats */
     for (int i = 0; i < nb_funcs; i++) {
         fprintf(stdout, "%14f", data[i]);
-        std::cout << " | " << std::endl;
+        std::cout << " ";
+        // for (int j = 0; j < func_names[i].length()/2; j++) {
+        //     std::cout << " ";
+        // }
+        // std::cout << data[i];
+        // for (int j = 0; j < func_names[i].length()/2; j++) {
+        //     std::cout << " ";
+        // }
+    }
+
+    std::cout << std::endl;
+}
+
+void show_array(int nb_vals, int nb_funcs, std::string func_names[], unsigned long* data) {
+    /* Front padding (8-spaces format of nb_vals) */
+    std::cout << "        | ";
+    /* Prints function names */
+    for (int i = 0; i < nb_funcs; i++) {
+        std::cout << func_names[i] << " | ";
+    }
+
+    std::cout << std::endl;
+
+    fprintf(stdout, "%-8d", nb_vals);
+
+    /* Print stats */
+    for (int i = 0; i < nb_funcs; i++) {
+        fprintf(stdout, "%14ld", data[i]);
+        std::cout << " | ";
         // for (int j = 0; j < func_names[i].length()/2; j++) {
         //     std::cout << " ";
         // }
@@ -34,14 +63,14 @@ void show_array(int nb_vals, int nb_funcs, std::string func_names[], double* dat
 int main(int argc, char** argv) {
     /* Functions to compare */
     int nb_funcs = 3;
-    void (*funcs[nb_funcs])(std::vector<int>, int*, int*) = { insertion_sort, merge_sort, quick_sort };
+    void (*funcs[nb_funcs])(std::vector<int>, unsigned long*, unsigned long*) = { insertion_sort, merge_sort, quick_sort };
     std::string func_names[nb_funcs] = { "Insertion Sort", "Merge Sort", "Quick Sort" };
 
     /* Stats */
     time_t start, end;
     double timediffs[nb_funcs];
-    double nb_swaps[nb_funcs];
-    double nb_cmps[nb_funcs];
+    unsigned long nb_swaps[nb_funcs];
+    unsigned long nb_cmps[nb_funcs];
 
     //          fn1       fn2        fn3       ...
     //   500     X         X          X
