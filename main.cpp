@@ -1,4 +1,5 @@
 #include <random>
+#include <iostream>
 
 #include "sort.hpp"
 
@@ -23,8 +24,8 @@ int main(int argc, char** argv) {
     // 50000     X         X          X
     //   ...
 
-    for (int i = 0; i < nb_funcs; i++) {
-        for (int j = 0; j < nb_samp; j++) {
+    for (int j = 0; j < nb_samp; j++) {
+        for (int i = 0; i < nb_funcs; i++) {
             std::vector<int> array;
             
             /* Fills the array */
@@ -36,7 +37,11 @@ int main(int argc, char** argv) {
             time(&start);
             funcs[i](array, &nb_swaps[j*nb_funcs + i], &nb_cmps[j*nb_funcs + i]);
             time(&end);
+
             timediffs[j*nb_funcs + i] = difftime(end, start);
         }
     }
+
+    /* Display the arrays */
+    for (int i = 0; )
 }
