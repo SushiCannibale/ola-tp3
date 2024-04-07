@@ -3,38 +3,32 @@
 
 #include "sort.hpp"
 
-template <class T>
-void show_array(int nb_vals, int nb_funcs, std::string func_names[], T* data) {
+void show_array(int nb_vals, int nb_funcs, std::string func_names[], double* data) {
     /* Front padding (8-spaces format of nb_vals) */
     std::cout << "        | ";
-    for (int i = 0; i < nb_funcs-1; i++) {
+    /* Prints function names */
+    for (int i = 0; i < nb_funcs; i++) {
         std::cout << func_names[i] << " | ";
     }
 
-    std::cout << func_names[nb_funcs-1] << std::endl;
-    fprintf(stdout, "%8d", nb_vals);
+    std::cout << std::endl;
 
-    /* Prints function names */
-    for (int i = 0; i < nb_funcs-1; i++) {
-        for (int j = 0; j < func_names[i].length(); j++) {
-            std::cout << " ";
-        }
-        std::cout << " | ";
-    }
-    for (int j = 0; j < func_names[nb_funcs-1].length(); j++) {
-        std::cout << " ";
-    }
+    fprintf(stdout, "%-8d", nb_vals);
 
     /* Print stats */
     for (int i = 0; i < nb_funcs; i++) {
-        for (int j = 0; j < func_names[i].length()/2; j++) {
-            std::cout << " ";
-        }
-        std::cout << data[i];
-        for (int j = 0; j < func_names[i].length()/2; j++) {
-            std::cout << " ";
-        }
+        fprintf(stdout, "%14f", data[i]);
+        std::cout << " | " << std::endl;
+        // for (int j = 0; j < func_names[i].length()/2; j++) {
+        //     std::cout << " ";
+        // }
+        // std::cout << data[i];
+        // for (int j = 0; j < func_names[i].length()/2; j++) {
+        //     std::cout << " ";
+        // }
     }
+
+    std::cout << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -46,14 +40,14 @@ int main(int argc, char** argv) {
     /* Stats */
     time_t start, end;
     double timediffs[nb_funcs];
-    int nb_swaps[nb_funcs];
-    int nb_cmps[nb_funcs];
+    double nb_swaps[nb_funcs];
+    double nb_cmps[nb_funcs];
 
     //          fn1       fn2        fn3       ...
     //   500     X         X          X
     //   ...
 
-    int user_nb_vals; // TODO: fills the user input 'user_nb_vals'
+    int user_nb_vals = 10; // TODO: fills the user input 'user_nb_vals'
 
     for (int i = 0; i < nb_funcs; i++) {
         std::vector<int> array;
@@ -73,9 +67,14 @@ int main(int argc, char** argv) {
 
     /* Display the arrays */
     std::cout << "Timestamps" << std::endl;
-    show_array<double>(user_nb_vals, nb_funcs, func_names, timediffs);
+    show_array(user_nb_vals, nb_funcs, func_names, timediffs);
+    std::cout << std::endl;
+
     std::cout << "Number of swaps" << std::endl;
-    show_array<int>(user_nb_vals, nb_funcs, func_names, nb_swaps);
+    show_array(user_nb_vals, nb_funcs, func_names, nb_swaps);
+    std::cout << std::endl;
+
     std::cout << "Number of comparisons" << std::endl;
-    show_array<int>(user_nb_vals, nb_funcs, func_names, nb_cmps);
+    show_array(user_nb_vals, nb_funcs, func_names, nb_cmps);
+    std::cout << std::endl;
 }
