@@ -4,6 +4,17 @@
 
 #include "sort.hpp"
 
+void show_elts(const std::vector<int> array) {
+    std::cout << "[ " << array[0];
+    for (int i = 1; i < array.size(); i++) {
+        std::cout << ", " << array[i];
+    }
+    std::cout << " ]" << std::endl;
+}
+
+int randi(int a, int b) {
+    return rand() % (b - a) + a;
+}
 
 void show_array(int nb_vals, int nb_funcs, std::string func_names[], double* data) {
     int padding = log10(nb_vals)+1;
@@ -64,16 +75,20 @@ int main(int argc, char** argv) {
     //   500     X         X          X
     //   ...
 
-    int user_nb_vals = 100000; // TODO: fills the user input 'user_nb_vals'
+    int user_nb_vals = 10; // TODO: fills the user input 'user_nb_vals'
+    std::vector<int> array;
 
     for (int i = 0; i < nb_funcs; i++) {
         time_t start, end;
-        std::vector<int> array;
+        array.clear();
         
         /* Fills the array */
         for (int k = 0; k < user_nb_vals; k++) {
-            array.push_back(rand());
+            array.push_back(randi(0, user_nb_vals));
         }
+
+        fprintf(stdout, "Unsorted: ");
+        show_elts(array);
 
         /* Runs the function & store the stats */
         time(&start);
@@ -81,6 +96,9 @@ int main(int argc, char** argv) {
         time(&end);
 
         timediffs[i] = difftime(end, start);
+
+        fprintf(stdout, "Sorted:   ");
+        show_elts(array);
     }
 
     /* Display the arrays */
