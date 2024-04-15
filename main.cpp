@@ -63,7 +63,7 @@ void show_array(int nb_vals, int nb_funcs, std::string func_names[], unsigned lo
 int main(int argc, char** argv) {
     /* Functions to compare */
     int nb_funcs = 3;
-    void (*funcs[nb_funcs])(std::vector<int>, unsigned long*, unsigned long*) = { insertion_sort, merge_sort, quick_sort };
+    void (*funcs[nb_funcs])(std::vector<int>&, unsigned long*, unsigned long*) = { insertion_sort, merge_sort, quick_sort };
     std::string func_names[nb_funcs] = { "Insertion Sort", "Merge Sort", "Quick Sort" };
 
     /* Stats */
@@ -75,31 +75,33 @@ int main(int argc, char** argv) {
     //   500     X         X          X
     //   ...
 
-    int user_nb_vals = 10; // TODO: fills the user input 'user_nb_vals'
-    std::vector<int> array;
+    int user_nb_vals = 500000; // TODO: fills the user input 'user_nb_vals'
 
     for (int i = 0; i < nb_funcs; i++) {
-        time_t start, end;
-        array.clear();
+        double start, end;
+
+        std::vector<int> array = std::vector<int>();
         
         /* Fills the array */
         for (int k = 0; k < user_nb_vals; k++) {
-            array.push_back(randi(0, user_nb_vals));
+            array.push_back(randi(0, 99));
         }
 
-        fprintf(stdout, "Unsorted: ");
-        show_elts(array);
+        // fprintf(stdout, "Unsorted: ");
+        // show_elts(array);
 
         /* Runs the function & store the stats */
-        time(&start);
+        start = clock();
         funcs[i](array, &nb_swaps[i], &nb_cmps[i]);
-        time(&end);
+        end = clock();
 
-        timediffs[i] = difftime(end, start);
+        timediffs[i] = (end - start) / CLOCKS_PER_SEC;
 
-        fprintf(stdout, "Sorted:   ");
-        show_elts(array);
+        // fprintf(stdout, "Sorted:   ");
+        // show_elts(array);
     }
+
+    std::cout << std::endl;
 
     /* Display the arrays */
     std::cout << "Timestamps :" << std::endl;
