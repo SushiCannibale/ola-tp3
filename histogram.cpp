@@ -10,7 +10,7 @@ void display_histogram(std::vector<int> array, int max_val, int n_bars, int max_
     /* 1st row */
     fprintf(stdout, "%*d | ", margin_left, 0);
     for (int i = 0; i < map(array[0], max_val, max_bar_len); i++) {
-        fprintf(stdout, "%*s", margin_left, CHAR);
+        fprintf(stdout, CHAR);
     }
     fprintf(stdout, "\n");
 
@@ -19,7 +19,7 @@ void display_histogram(std::vector<int> array, int max_val, int n_bars, int max_
     for (int i = 1; i < n_bars-1; i += bar_step) {
         fprintf(stdout, "%*s | ", margin_left, "");
         for (int j = 0; j < map(array[i], max_val, max_bar_len); j++) {
-            fprintf(stdout, "%*s", margin_left, CHAR);
+            fprintf(stdout, CHAR);
         }
         fprintf(stdout, "\n");
     }
@@ -27,7 +27,7 @@ void display_histogram(std::vector<int> array, int max_val, int n_bars, int max_
     /* last row */
     fprintf(stdout, "%*d | ", margin_left, n_bars);
     for (int i = 0; i < map(array[n_bars-1], max_val, max_bar_len); i++) {
-        fprintf(stdout, "%*s", margin_left, CHAR);
+        fprintf(stdout, CHAR);
     }
     fprintf(stdout, "\n");
 

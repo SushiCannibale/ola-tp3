@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
         }
 
         fprintf(stdout, "Unsorted: [ %s ]\n", func_names[i].c_str());
-        display_histogram(array, 100, user_nb_vals, 20, 20);
+        display_histogram(array, 100, user_nb_vals, 20, 20*2);
         fprintf(stdout, "\n");
 
         /* Runs the function & store the stats */
@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
         timediffs[i] = (end - start) / CLOCKS_PER_SEC;
 
         fprintf(stdout, "Sorted:   [ %s ]\n", func_names[i].c_str());
-        display_histogram(array, 100, user_nb_vals, 20, 20);
+        display_histogram(array, 100, user_nb_vals, 20, 20*2);
         fprintf(stdout, "\n");
     }
 
