@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
     //   500     X         X          X
     //   ...
 
-    int user_nb_vals = 500000; // TODO: fills the user input 'user_nb_vals'
+    int user_nb_vals = 10000; // TODO: fills the user input 'user_nb_vals'
 
     for (int i = 0; i < nb_funcs; i++) {
         double start, end;
