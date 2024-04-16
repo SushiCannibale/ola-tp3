@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
     //   500     X         X          X
     //   ...
 
-    int user_nb_vals = 2000; // TODO: fills the user input 'user_nb_vals'
+    int user_nb_vals = 10000; // TODO: fills the user input 'user_nb_vals'
 
     for (int i = 0; i < nb_funcs; i++) {
         double start, end;
@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
             array.push_back(randi(0, 101));
         }
 
-        fprintf(stdout, "Unsorted: [ %s ]\n", func_names[i].c_str());
+        fprintf(stdout, "Unsorted: \x1b[0;31m[ %s ]\x1b[0m\n", func_names[i].c_str());
         display_histogram(array, 100, user_nb_vals, 20, 20*2);
         fprintf(stdout, "\n");
 
@@ -99,7 +99,7 @@ int main(int argc, char** argv) {
 
         timediffs[i] = (end - start) / CLOCKS_PER_SEC;
 
-        fprintf(stdout, "Sorted:   [ %s ]\n", func_names[i].c_str());
+        fprintf(stdout, "Sorted:   \x1b[0;32m[ %s ]\x1b[0m\n", func_names[i].c_str());
         display_histogram(array, 100, user_nb_vals, 20, 20*2);
         fprintf(stdout, "\n");
     }
