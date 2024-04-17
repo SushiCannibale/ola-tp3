@@ -69,6 +69,171 @@ void space(){
 	std::cout<<"|                                                         |\n";
 }
 
+void callAscendentSorted(unsigned long size){
+
+	int nb_funcs = 3;
+    void (*funcs[nb_funcs])(std::vector<int>&, unsigned long*, unsigned long*) = { insertion_sort, merge_sort, quick_sort };
+    std::string func_names[nb_funcs] = { "Insertion Sort", "Merge Sort", "Quick Sort" };
+
+    /* Stats */
+    double timediffs[nb_funcs] = { 0.0 };
+    unsigned long nb_swaps[nb_funcs] = { 0 };
+    unsigned long nb_cmps[nb_funcs] = { 0 };
+
+    /* Save */
+    FILE* fp = fopen("SortieAscen.txt", "w");
+
+    //          fn1       fn2        fn3       ...
+    //   500     X         X          X
+    //   ...
+
+    int max_n_bars=20;
+    // affichage de l'ui:
+    if(max_n_bars>size)
+        max_n_bars=size;
+	for (int i = 0; i < nb_funcs; i++) {
+        /* Stats */
+        timediffs[i] = 0.0;
+        nb_swaps[i] = 0;
+        nb_cmps[i] = 0;
+        double start, end;
+
+        std::vector<int> array = std::vector<int>();
+        
+        /* Fills the array */
+        for (int k = 0; k < size; k++) {
+            array.push_back(k);
+        }
+
+        fprintf(stdout, "Unsorted: \x1b[0;31m[ %s ]\x1b[0m\n", func_names[i].c_str());
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, stdout);
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, fp);
+        fprintf(stdout, "\n");
+
+        /* Runs the function & store the stats */
+        start = clock();
+        funcs[i](array, &nb_swaps[i], &nb_cmps[i]);
+        end = clock();
+
+        timediffs[i] = (end - start) / CLOCKS_PER_SEC;
+
+        fprintf(stdout, "Sorted:   \x1b[0;32m[ %s ]\x1b[0m\n", func_names[i].c_str());
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, stdout);
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, fp);
+        fprintf(stdout, "\n");
+    }
+
+    fprintf(stdout, "\n");
+    fprintf(fp, "\n");
+
+    /* Display the arrays */
+    fprintf(stdout, "Timestamps :\n");
+    show_array(size, nb_funcs, func_names, timediffs, stdout);
+    fprintf(stdout, "\n");
+    fprintf(fp, "Timestamps :\n");
+    show_array(size, nb_funcs, func_names, timediffs, fp);
+    fprintf(fp, "\n");
+
+    fprintf(stdout, "Number of swaps :\n");
+    show_array(size, nb_funcs, func_names, nb_swaps, stdout);
+    fprintf(stdout, "\n");
+    fprintf(fp, "Number of swaps :\n");
+    show_array(size, nb_funcs, func_names, nb_swaps, fp);
+    fprintf(fp, "\n");
+
+    fprintf(stdout, "Number of comparisons :\n");
+    show_array(size, nb_funcs, func_names, nb_cmps, stdout);
+    fprintf(stdout, "\n");
+    fprintf(fp, "Number of comparisons :\n");
+    show_array(size, nb_funcs, func_names, nb_cmps, fp);
+    fprintf(fp, "\n");
+
+
+	fclose(fp);
+
+}
+void callDescendantSorted(unsigned long size){
+
+	int nb_funcs = 3;
+    void (*funcs[nb_funcs])(std::vector<int>&, unsigned long*, unsigned long*) = { insertion_sort, merge_sort, quick_sort };
+    std::string func_names[nb_funcs] = { "Insertion Sort", "Merge Sort", "Quick Sort" };
+
+    /* Stats */
+    double timediffs[nb_funcs] = { 0.0 };
+    unsigned long nb_swaps[nb_funcs] = { 0 };
+    unsigned long nb_cmps[nb_funcs] = { 0 };
+
+    /* Save */
+    FILE* fp = fopen("SortieDesce.txt", "w");
+
+    //          fn1       fn2        fn3       ...
+    //   500     X         X          X
+    //   ...
+
+    int max_n_bars=20;
+    // affichage de l'ui:
+    if(max_n_bars>size)
+        max_n_bars=size;
+	for (int i = 0; i < nb_funcs; i++) {
+        /* Stats */
+        timediffs[i] = 0.0;
+        nb_swaps[i] = 0;
+        nb_cmps[i] = 0;
+        double start, end;
+
+        std::vector<int> array = std::vector<int>();
+        
+        /* Fills the array */
+        for (int k = 0; k < size; k++) {
+            array.push_back(size-k);
+        }
+
+        fprintf(stdout, "Unsorted: \x1b[0;31m[ %s ]\x1b[0m\n", func_names[i].c_str());
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, stdout);
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, fp);
+        fprintf(stdout, "\n");
+
+        /* Runs the function & store the stats */
+        start = clock();
+        funcs[i](array, &nb_swaps[i], &nb_cmps[i]);
+        end = clock();
+
+        timediffs[i] = (end - start) / CLOCKS_PER_SEC;
+
+        fprintf(stdout, "Sorted:   \x1b[0;32m[ %s ]\x1b[0m\n", func_names[i].c_str());
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, stdout);
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, fp);
+        fprintf(stdout, "\n");
+    }
+
+    fprintf(stdout, "\n");
+    fprintf(fp, "\n");
+
+    /* Display the arrays */
+    fprintf(stdout, "Timestamps :\n");
+    show_array(size, nb_funcs, func_names, timediffs, stdout);
+    fprintf(stdout, "\n");
+    fprintf(fp, "Timestamps :\n");
+    show_array(size, nb_funcs, func_names, timediffs, fp);
+    fprintf(fp, "\n");
+
+    fprintf(stdout, "Number of swaps :\n");
+    show_array(size, nb_funcs, func_names, nb_swaps, stdout);
+    fprintf(stdout, "\n");
+    fprintf(fp, "Number of swaps :\n");
+    show_array(size, nb_funcs, func_names, nb_swaps, fp);
+    fprintf(fp, "\n");
+
+    fprintf(stdout, "Number of comparisons :\n");
+    show_array(size, nb_funcs, func_names, nb_cmps, stdout);
+    fprintf(stdout, "\n");
+    fprintf(fp, "Number of comparisons :\n");
+    show_array(size, nb_funcs, func_names, nb_cmps, fp);
+    fprintf(fp, "\n");
+
+
+	fclose(fp);
+}
 
 void callUI(){
 
@@ -173,7 +338,43 @@ void callUI(){
 
 int main(int argc, char** argv) {
     /* Functions to compare */
-	callUI();
+	if(argc<2 || argc>3){
+		std::cerr<<"Merci d'appeler main avec un ou deux(max) paramètre supplémentaire :\n"
+			<< "1 pour appeler l' interface utilisateur, \n"
+			<< "2 pour appeler un tri par valeurs ascendantes, \n"
+			<< "3 pour appeler un tri par valeurs descendantes.\n"
+			<< "merci de n'utiliser le 2 et le 3 que pour des mesures seulement\n"
+			<<"le programme s'arrètera pour toutes valeurs autres que 1, 2 ou 3\n"; 
+		return 1;
+	}
+	int param1=std::stoi(argv[1]);
+	if(argc==2){
+		if(param1!=1){
+			std::cerr<<"Merci d'entrer une valeur valide\n";
+			return 1;
+		}
+		else
+			callUI();
+	}
+	else{ // argc==3
+		int param2=std::stoi(argv[2]);
+		if(param2<=0){
+			std::cerr<<"Le param2 doit être strictement supérieur à 0\n";
+			return 1;
+		}
+		if(param1==2)
+			callAscendentSorted(param2);
+		else if(param1==3)
+			callDescendantSorted(param2);
+		else{
+			std::cerr<<"Merci d'entrer une valeur valide\n";
+			return 1;
+		}
+	}
+	
+
+
+
 
 
 
