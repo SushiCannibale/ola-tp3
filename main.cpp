@@ -1,6 +1,7 @@
 #include <random>
 #include <iostream>
 #include <cmath>
+#include <string>
 
 #include "sort.hpp"
 #include "histogram.hpp"
@@ -61,9 +62,17 @@ void show_array(int nb_vals, int nb_funcs, std::string func_names[], unsigned lo
     fprintf(fp, "\n");
 }
 
-int main(int argc, char** argv) {
-    /* Functions to compare */
-    int nb_funcs = 3;
+void sperator(){
+	std::cout<<"-----------------------------------------------------------\n";
+}
+void space(){
+	std::cout<<"|                                                         |\n";
+}
+
+
+void callUI(){
+
+	int nb_funcs = 3;
     void (*funcs[nb_funcs])(std::vector<int>&, unsigned long*, unsigned long*) = { insertion_sort, merge_sort, quick_sort };
     std::string func_names[nb_funcs] = { "Insertion Sort", "Merge Sort", "Quick Sort" };
 
@@ -79,9 +88,24 @@ int main(int argc, char** argv) {
     //   500     X         X          X
     //   ...
 
-    int user_nb_vals = 10000; // TODO: fills the user input 'user_nb_vals'
+    int user_nb_vals;
 
-    for (int i = 0; i < nb_funcs; i++) {
+    // affichage de l'ui:
+	do{
+	sperator();		
+	std::cout<<"| Voici comment utiliser le programme ;                   |\n";
+	space();
+	std::cout<<"| => vous pouvez lancer un appel sur tous les tri         |\n| en rentrant une valeur numérique                        |\n";
+	space();
+	std::cout<<"| => vous pouvez quitter le programme en envoyant         |\n| 0 ou une chaine ne contenant pas de valeur numérique    |\n";
+	space();
+	std::cout<<"| =>(vous pouvez quitter de façon non conventionnel       |\n|  à l'aide de Ctrl-C)                                    |\n";
+	sperator();
+    std::cout << "Merci de rentrer la valeur voulu : ";
+	std::cin  >> user_nb_vals;
+	if(user_nb_vals<=0)
+		break;
+	for (int i = 0; i < nb_funcs; i++) {
         double start, end;
 
         std::vector<int> array = std::vector<int>();
@@ -134,7 +158,17 @@ int main(int argc, char** argv) {
     show_array(user_nb_vals, nb_funcs, func_names, nb_cmps, fp);
     fprintf(fp, "\n");
 
-    fclose(fp);
+	sperator();
+	}while(user_nb_vals>=1);
+
+	fclose(fp);
+}
+
+int main(int argc, char** argv) {
+    /* Functions to compare */
+	callUI();
+
+
 
     return 0;
 }
