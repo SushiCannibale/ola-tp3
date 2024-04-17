@@ -89,9 +89,10 @@ void callUI(){
     //   ...
 
     int user_nb_vals;
-
+    int max_n_bars;
     // affichage de l'ui:
 	do{
+        max_n_bars=20;
 	sperator();		
 	std::cout<<"| Voici comment utiliser le programme ;                   |\n";
 	space();
@@ -105,7 +106,13 @@ void callUI(){
 	std::cin  >> user_nb_vals;
 	if(user_nb_vals<=0)
 		break;
+    if(max_n_bars>user_nb_vals)
+        max_n_bars=user_nb_vals;
 	for (int i = 0; i < nb_funcs; i++) {
+        /* Stats */
+        timediffs[i] = 0.0;
+        nb_swaps[i] = 0;
+        nb_cmps[i] = 0;
         double start, end;
 
         std::vector<int> array = std::vector<int>();
@@ -116,8 +123,8 @@ void callUI(){
         }
 
         fprintf(stdout, "Unsorted: \x1b[0;31m[ %s ]\x1b[0m\n", func_names[i].c_str());
-        display_histogram(array, 100, 20, 20*2, stdout);
-        display_histogram(array, 100, 20, 20*2, fp);
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, stdout);
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, fp);
         fprintf(stdout, "\n");
 
         /* Runs the function & store the stats */
@@ -128,8 +135,8 @@ void callUI(){
         timediffs[i] = (end - start) / CLOCKS_PER_SEC;
 
         fprintf(stdout, "Sorted:   \x1b[0;32m[ %s ]\x1b[0m\n", func_names[i].c_str());
-        display_histogram(array, 100, 20, 20*2, stdout);
-        display_histogram(array, 100, 20, 20*2, fp);
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, stdout);
+        display_histogram(array, 100, max_n_bars, max_n_bars*2, fp);
         fprintf(stdout, "\n");
     }
 
