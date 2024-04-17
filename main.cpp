@@ -116,8 +116,8 @@ void callUI(){
         }
 
         fprintf(stdout, "Unsorted: \x1b[0;31m[ %s ]\x1b[0m\n", func_names[i].c_str());
-        display_histogram(array, 100, user_nb_vals, 20, 20*2, stdout);
-        display_histogram(array, 100, user_nb_vals, 20, 20*2, fp);
+        display_histogram(array, 100, 20, 20*2, stdout);
+        display_histogram(array, 100, 20, 20*2, fp);
         fprintf(stdout, "\n");
 
         /* Runs the function & store the stats */
@@ -128,8 +128,8 @@ void callUI(){
         timediffs[i] = (end - start) / CLOCKS_PER_SEC;
 
         fprintf(stdout, "Sorted:   \x1b[0;32m[ %s ]\x1b[0m\n", func_names[i].c_str());
-        display_histogram(array, 100, user_nb_vals, 20, 20*2, stdout);
-        display_histogram(array, 100, user_nb_vals, 20, 20*2, fp);
+        display_histogram(array, 100, 20, 20*2, stdout);
+        display_histogram(array, 100, 20, 20*2, fp);
         fprintf(stdout, "\n");
     }
 

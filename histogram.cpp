@@ -4,7 +4,8 @@ int map(float n, float n_max, int max) {
     return (int)((n / n_max) * max);
 }
 
-void display_histogram(std::vector<int> array, int max_val, int n_bars, int max_n_bars, int max_bar_len, FILE* fp) {
+void display_histogram(std::vector<int> array, int max_val, int max_n_bars, int max_bar_len, FILE* fp) {
+    int n_bars = array.size();
     int margin_left = log10(n_bars) + 1;
     
     /* 1st row */
